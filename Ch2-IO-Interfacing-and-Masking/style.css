@@ -1,0 +1,175 @@
+/* Deck-wide helpers for the Basic I/O Interfacing slides (same look as 00-Intro-to-IOT) */
+
+/* ===== TITLE SIZE on all content slides (cover / thank-you not affected) ===== */
+.slidev-layout.l-topic .l-head .fs-h2 { font-size: 2.1rem; line-height: 1.1; }   /* ← TITLE FONT SIZE (theme default 3rem) */
+.slidev-layout.l-topic .l-head .kicker { margin-bottom: 0.3rem; }                 /* ← gap between small label and title */
+
+/* ===== POINT MARKERS like the PDF (Beamer "balls") =====
+   1, 2, 3 …  → numbered balls        a, b …  → lettered balls (class: alpha-sub)
+   •          → round ball bullet      ✔       → check balls (<div class="check"> list)
+   Uses the browser's own list counter, so "2." after a table continues from 2. */
+.slidev-layout ol { list-style: none; padding-left: 2em; }
+.slidev-layout ol > li { position: relative; }
+.slidev-layout ol > li::before {
+  content: counter(list-item);
+  position: absolute; left: -1.75em; top: 0.18em;
+  width: 1.3em; height: 1.3em; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.78em; font-weight: 700; color: #fff; line-height: 1;
+  background: radial-gradient(circle at 35% 30%, #d9534f, #8e1b1b 75%);      /* ← number ball colour */
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.35);
+}
+.alpha-sub ol ol > li::before,
+.alpha-sub ul ol > li::before { content: counter(list-item, lower-alpha); }
+.slidev-layout ul > li { padding-left: 1.5em; }
+.slidev-layout ul > li::before {                                                 /* ← bullet ball */
+  width: 0.5em; height: 0.5em; top: 0.45em;
+  background: radial-gradient(circle at 35% 30%, #d9534f, #8e1b1b 75%);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.35);
+}
+/* the point revealed by the latest click gets a blue ball, like the PDF */
+.slidev-layout li.slidev-vclick-current::before { background: radial-gradient(circle at 35% 30%, #5b7cff, #1a2bb3 75%); }
+/* ✔ check-ball list (Masking Operators slide) */
+.slidev-layout .check ul > li { padding-left: 1.9em; }
+.slidev-layout .check ul > li::before {
+  content: "✔"; width: 1.3em; height: 1.3em; top: 0.12em; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; color: #fff; font-size: 0.78em;
+}
+
+/* Body text size on ALL slides (content under the title; titles are not affected) */
+.slidev-layout .l-body { font-size: 1.45rem; }   /* ← POINT / BODY FONT SIZE for ALL slides */
+
+/* Content starts right under the title on every slide (like the original PDF) */
+.slidev-layout .l-body,
+.slidev-layout .fit { justify-content: flex-start; }
+/* …except the Thank You slide, which stays centred in the middle of the slide */
+.slidev-layout.l-end .fit { justify-content: center; }
+.slidev-layout .l-body { padding-top: 0.25rem; }   /* ← GAP between title and content */
+/* Add `class: centered` to a slide to centre its content vertically instead */
+.centered .slidev-layout .l-body,
+.centered .slidev-layout .fit { justify-content: center; }
+
+/* Point that was revealed by the latest click is shown in the accent colour */
+.slidev-layout .slidev-vclick-current,
+.slidev-layout .slidev-vclick-current strong { color: var(--accent); }
+
+.red { color: var(--accent); }               /* the red "Example:" text from the PDF */
+.example-line { margin: 0.35rem 0 0.35rem 1.6em; }   /* lines like "DDRB = 0xF0" under a point */
+.slidev-layout li { margin: 0.35rem 0; }
+
+/* Images */
+.photo { display: block; max-width: 100%; max-height: 20rem; object-fit: contain; margin: 0.5rem auto; }   /* ← default image size */
+.photo-sm { max-height: 9rem; }
+.photo-lg { max-height: 23rem; }
+
+/* C statements / register names on slides: plain typewriter text like the PDF (no dark box).
+   Colour follows the line, so the "current click" highlight turns it red too. */
+.mono { font-family: "Courier New", Courier, ui-monospace, monospace; font-size: 1.02em; color: inherit; background: none; }   /* ← code text size */
+
+/* Inline code (register names, C statements): readable, not the theme's dark block */
+.slidev-layout .l-body :not(pre) > code { background: color-mix(in srgb, var(--accent) 8%, transparent); color: var(--fg); padding: 0.05em 0.35em; border-radius: 4px; font-size: 0.92em; }
+
+/* 8-bit register tables (<RegTable>) — selectors start with .slidev-layout to beat the theme's table styles */
+.slidev-layout .regtable { display: flex; align-items: center; justify-content: center; gap: 0.8rem; margin: 0.35rem 0; }
+.slidev-layout .regtable-label { font-size: 1.05em; white-space: nowrap; }
+.slidev-layout .regtable table { width: auto; border-collapse: collapse; border: 3px solid var(--fg); font-size: 1em; }   /* ← table text size */
+.slidev-layout .regtable thead th,
+.slidev-layout .regtable tbody td,
+.slidev-layout .regtable tbody tr:last-child td { border: 1px solid var(--fg); padding: 0.1rem 0.9rem; text-align: center; min-width: 2.6rem; line-height: 1.3; }   /* ← cell spacing */
+.slidev-layout .regtable thead th { font-weight: 700; color: var(--fg); font-size: 1em; font-family: inherit; text-transform: none; letter-spacing: normal; }
+.slidev-layout .regtable .reg-red { color: #e53935; font-weight: 700; }
+.op-word { text-align: center; font-weight: 700; margin: 0.1rem 0; }
+
+/* Truth tables */
+.slidev-layout table.truth { width: auto; margin: 0.5rem auto; border-collapse: collapse; border: 3px solid var(--fg); }
+.slidev-layout table.truth thead th,
+.slidev-layout table.truth tbody td,
+.slidev-layout table.truth tbody tr:last-child td { border: 1px solid var(--fg); padding: 0.15rem 1.4rem; text-align: center; line-height: 1.3; }
+.slidev-layout table.truth thead th { color: var(--accent); font-weight: 700; font-family: inherit; font-size: 1em; text-transform: none; letter-spacing: normal; }
+
+/* Add `class: cols-center` to a two-cols slide to centre the right text against the left image */
+.cols-center .two-cols { align-items: center; grid-template-columns: 3fr 2fr; }   /* ← image : text width */
+.cols-center .two-cols .col:last-child li { font-size: 1.15em; margin: 0.7rem 0; }  /* ← right-side point size / spacing */
+
+/* Agenda */
+/* Add `class: main-gap` to a slide for extra space between the MAIN (bullet) points only;
+   numbered sub-points keep their normal spacing */
+.main-gap .slidev-layout .l-body ul > li { margin: 1.5rem 0; }          /* ← gap between main points */
+.main-gap .slidev-layout .l-body ul > li:first-child { margin-top: 0; }
+.main-gap .slidev-layout .l-body { padding-top: 2.2rem; }               /* ← gap between title and first point */
+
+/* Add `class: title-gap` to a slide for more space between the title and the first point */
+.title-gap .slidev-layout .l-body { padding-top: 1.7rem; }                /* ← gap between title and points */
+.title-gap .slidev-layout .l-body li { margin: 0.6rem 0; }              /* ← space between points */
+.title-gap .slidev-layout .l-body li li { margin: 0.35rem 0; }           /* ← space between sub-points */
+/* Add `class: title-gap roomy` to a SHORT slide for even bigger gaps (e.g. slide 10) */
+.roomy.title-gap .slidev-layout .l-body { padding-top: 2.6rem; }          /* ← gap between title and points */
+.roomy.title-gap .slidev-layout .l-body li { margin: 1.8rem 0; }          /* ← space between points */
+.roomy.title-gap .slidev-layout .l-body li li { margin: 0.9rem 0; }       /* ← space between sub-points */
+/* Add `class: spread` to space out every line of a slide: points, register table and "DDRB = …" lines (e.g. slide 11) */
+.spread .slidev-layout .l-body { padding-top: 1.2rem; }                  /* ← gap between title and first line */
+.spread .slidev-layout .l-body li { margin: 1rem 0; }                    /* ← space between points */
+.spread .slidev-layout .l-body .regtable { margin: 1.1rem 0; }           /* ← space around the register table */
+.spread .slidev-layout .l-body .example-line > div { margin: 0.6rem 0; } /* ← space between "DDRB = …" lines */
+.spread .slidev-layout .l-body .photo { margin-top: 1.6rem; }            /* ← space between the points and a picture */
+/* Add `class: centered wide-gaps` to a short slide: points stay in the middle, spread out to fill the slide (e.g. slide 24) */
+.wide-gaps .slidev-layout .l-body li { margin: 2.2rem 0; }              /* ← space between points */
+/* Add `class: centered mid-gaps` for a slide with longer points (e.g. slide 31): medium spacing */
+.mid-gaps .slidev-layout .l-body li { margin: 1.4rem 0; }               /* ← space between points */
+/* Add `big-truth` to a slide's class to show its truth table larger (e.g. slide 28) */
+.big-truth .slidev-layout table.truth { font-size: 1.12em; margin-top: 0.4rem; }      /* ← truth table size */
+.big-truth .slidev-layout table.truth thead th,
+.big-truth .slidev-layout table.truth tbody td,
+.big-truth .slidev-layout table.truth tbody tr:last-child td { padding: 0 2.2rem; line-height: 1.2; }   /* ← truth table cell spacing */
+
+/* Add `class: center-points` + wrap the list in <div class="center-list"> to show a short list
+   centred on the slide, bigger and more spaced (e.g. "Accessing Ports") */
+.center-points .slidev-layout .l-body,
+.center-points .slidev-layout .fit { justify-content: center; }
+.center-points .lead-line { font-size: 1.3em; }                                 /* ← "Each Port has three associated registers with it:" size */
+.center-points .center-list { width: fit-content; margin: 1.2rem auto 0; }
+.center-points .center-list ol > li { font-size: 1.4em; margin: 1.3rem 0; }   /* ← point size / gap between points */
+.center-points .reg-name { display: inline-block; min-width: 4.3em; font-weight: 600; }   /* keeps "x = B, C and D" aligned */
+
+/* ===== "What are Ports?" diagram: input devices → ATmega328P → output devices ===== */
+.port-diagram { display: flex; align-items: center; justify-content: center; gap: 0.6rem; margin: 0.9rem 2.6rem 0 0; font-size: 0.69em; }   /* ← diagram size / gap above it */
+.pd-group { border: 1.5px solid color-mix(in srgb, var(--fg) 18%, transparent); border-radius: 0.7rem; padding: 0.55rem 0.9rem 0.7rem; }
+.pd-head { font-family: var(--font-mono, monospace); font-size: 0.68em; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.45rem; text-align: center; }
+.pd-items { display: flex; gap: 0.6rem; }
+.pd-grid { display: grid; grid-template-columns: repeat(2, auto); gap: 0.4rem 0.6rem; }
+.pd-item { display: flex; align-items: center; gap: 0.4rem; padding: 0.25rem 0.6rem; border-radius: 0.45rem; background: color-mix(in srgb, var(--accent) 7%, transparent); white-space: nowrap; }
+.pd-item .tahta-icon { color: var(--accent); flex: none; }
+.pd-link { display: flex; flex-direction: column; align-items: center; gap: 0.2rem; min-width: 5.5rem; }
+.pd-label { font-size: 0.7em; color: var(--fg-dim); white-space: nowrap; }
+.pd-arrow { position: relative; display: block; width: 100%; height: 2px; background: var(--accent); }
+.pd-arrow::after { content: ""; position: absolute; right: -1px; top: 50%; transform: translateY(-50%); border-left: 0.55rem solid var(--accent); border-top: 0.38rem solid transparent; border-bottom: 0.38rem solid transparent; }
+.pd-chip { display: flex; flex-direction: column; align-items: center; padding: 0.7rem 1.1rem; border-radius: 0.6rem; background: var(--fg); color: var(--ink, #fff); position: relative; }
+.pd-chip .tahta-icon { color: var(--accent); }
+.pd-chip-name { font-weight: 700; font-size: 1.05em; margin-top: 0.15rem; }
+.pd-chip-sub { font-size: 0.65em; opacity: 0.75; }
+/* the diagram keeps its own colours when its click is the "current" one */
+.slidev-layout .port-diagram .slidev-vclick-current { color: inherit; }
+.slidev-layout .port-diagram .pd-chip.slidev-vclick-current { color: var(--ink, #fff); }
+
+/* thin divider under the title (agenda slide only) */
+.agenda-slide .slidev-layout .l-head { padding-bottom: 0.7rem; border-bottom: 1px solid color-mix(in srgb, var(--fg) 15%, transparent); }
+.agenda-slide .slidev-layout .l-body { padding-top: 1.2rem; }                               /* ← gap: title divider → section label */
+/* section label: smaller than the title, clearly a label */
+.agenda-one .kicker { font-size: 0.95rem; margin: 0 0 0.6rem; }                            /* ← section label size */
+/* items: 2 aligned columns, read top-to-bottom (01–04 left, 05–08 right) */
+.agenda-one .agenda-grid {
+  display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, auto);
+  grid-auto-flow: column; column-gap: 3.5rem;
+}
+.agenda-one a.agenda-item {
+  display: grid; grid-template-columns: 2.4rem 1fr; align-items: baseline;
+  padding: 0.85rem 0;                                                                         /* ← row spacing */
+  border-bottom: 1px solid color-mix(in srgb, var(--fg) 10%, transparent);                    /* light row separator */
+  color: inherit; text-decoration: none; cursor: pointer;
+}
+.agenda-one .agenda-num { font-size: 1.15rem; min-width: 0; font-variant-numeric: tabular-nums; }   /* ← number size */
+.agenda-one .agenda-topic { font-size: 1.3rem; }                                                    /* ← item size */
+.agenda-one a.agenda-item:hover .agenda-topic { color: var(--accent); }
+
+/* ===== COVER: kicker + title + subtitle anchored low, so the subtitle sits at the same height on every deck ===== */
+.slidev-layout.l-cover .fit { justify-content: flex-end; padding-bottom: 2.4rem; }   /* ← raise/lower the cover text block */

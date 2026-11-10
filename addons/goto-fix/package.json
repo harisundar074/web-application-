@@ -1,0 +1,6 @@
+{
+  "name": "slidev-goto-dialog-fix",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Hides Slidev's goto-dialog slide list while the dialog is closed (@slidev/cli 0.49 + fuse.js 7 incompatibility)"
+}

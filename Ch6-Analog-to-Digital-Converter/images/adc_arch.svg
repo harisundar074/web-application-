@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 790 600" width="790" height="600">
+<rect width="790" height="600" fill="#fff"/>
+<rect x="130" y="12" width="640" height="576" fill="none" stroke="#1f2937" stroke-width="4"/>
+<text x="752" y="62" text-anchor="end" font-size="30" font-weight="bold" font-family="Helvetica, Arial, sans-serif" fill="#1f2937">ATmega328P</text>
+<rect x="100" y="107" width="30" height="26" fill="#fff" stroke="#1f2937" stroke-width="3"/>
+<text x="92" y="129" text-anchor="end" font-size="24" font-family="Helvetica, Arial, sans-serif" fill="#1f2937">ADC0</text>
+<line x1="130" y1="120" x2="206" y2="120" stroke="#1f2937" stroke-width="3"/>
+<circle cx="216" cy="120" r="10" fill="#fff" stroke="#1f2937" stroke-width="3"/>
+<rect x="100" y="167" width="30" height="26" fill="#fff" stroke="#1f2937" stroke-width="3"/>
+<text x="92" y="189" text-anchor="end" font-size="24" font-family="Helvetica, Arial, sans-serif" fill="#1f2937">ADC1</text>
+<line x1="130" y1="180" x2="206" y2="180" stroke="#1f2937" stroke-width="3"/>
+<circle cx="216" cy="180" r="10" fill="#fff" stroke="#1f2937" stroke-width="3"/>
+<rect x="100" y="227" width="30" height="26" fill="#fff" stroke="#1f2937" stroke-width="3"/>
+<text x="92" y="249" text-anchor="end" font-size="24" font-family="Helvetica, Arial, sans-serif" fill="#1f2937">ADC2</text>
+<line x1="130" y1="240" x2="206" y2="240" stroke="#1f2937" stroke-width="3"/>
+<circle cx="216" cy="240" r="10" fill="#fff" stroke="#1f2937" stroke-width="3"/>
+<text x="80" y="312" text-anchor="middle" font-size="34" font-family="Helvetica, Arial, sans-serif" fill="#1f2937">⋮</text>
+<rect x="100" y="347" width="30" height="26" fill="#fff" stroke="#1f2937" stroke-width="3"/>
+<text x="92" y="369" text-anchor="end" font-size="24" font-family="Helvetica, Arial, sans-serif" fill="#1f2937">ADC6</text>
+<line x1="130" y1="360" x2="206" y2="360" stroke="#1f2937" stroke-width="3"/>
+<circle cx="216" cy="360" r="10" fill="#fff" stroke="#1f2937" stroke-width="3"/>
+<rect x="100" y="407" width="30" height="26" fill="#fff" stroke="#1f2937" stroke-width="3"/>
+<text x="92" y="429" text-anchor="end" font-size="24" font-family="Helvetica, Arial, sans-serif" fill="#1f2937">ADC7</text>
+<line x1="130" y1="420" x2="206" y2="420" stroke="#1f2937" stroke-width="3"/>
+<circle cx="216" cy="420" r="10" fill="#fff" stroke="#1f2937" stroke-width="3"/>
+<polygon points="190,62 320,95 320,465 190,498" fill="none" stroke="#1f2937" stroke-width="4"/>
+<text x="255" y="535" text-anchor="middle" font-size="26" font-weight="bold" font-family="Helvetica, Arial, sans-serif" fill="#1f2937">MUX</text>
+<text x="255" y="562" text-anchor="middle" font-size="18" font-family="Helvetica, Arial, sans-serif" fill="#1f2937">(selects one channel)</text>
+<circle cx="290" cy="280" r="11" fill="#fff" stroke="#1f2937" stroke-width="3"/>
+<line x1="283" y1="271" x2="228" y2="190" stroke="#d62828" stroke-width="5"/>
+<polygon points="222,180 238,190 224,198" fill="#d62828"/>
+<line x1="301" y1="280" x2="380" y2="280" stroke="#1f2937" stroke-width="3"/>
+<rect x="355" y="175" width="215" height="300" fill="none" stroke="#1f2937" stroke-width="3" stroke-dasharray="10 7"/>
+<text x="462" y="510" text-anchor="middle" font-size="26" font-weight="bold" font-family="Helvetica, Arial, sans-serif" fill="#1f2937">Sample &amp; Hold</text>
+<line x1="380" y1="280" x2="440" y2="250" stroke="#1f2937" stroke-width="4"/>
+<circle cx="380" cy="280" r="4" fill="#1f2937"/>
+<line x1="450" y1="280" x2="610" y2="280" stroke="#1f2937" stroke-width="3"/>
+<text x="398" y="232" font-size="24" font-family="Helvetica, Arial, sans-serif" fill="#1f2937">S<tspan font-size="16" dy="6">SW</tspan></text>
+<circle cx="500" cy="280" r="5" fill="#1f2937"/>
+<line x1="500" y1="280" x2="500" y2="350" stroke="#1f2937" stroke-width="3"/>
+<line x1="470" y1="350" x2="530" y2="350" stroke="#1f2937" stroke-width="5"/>
+<line x1="470" y1="366" x2="530" y2="366" stroke="#1f2937" stroke-width="5"/>
+<line x1="500" y1="366" x2="500" y2="420" stroke="#1f2937" stroke-width="3"/>
+<polygon points="478,420 522,420 500,442" fill="none" stroke="#1f2937" stroke-width="3"/>
+<text x="540" y="368" font-size="24" font-family="Helvetica, Arial, sans-serif" fill="#1f2937">C<tspan font-size="16" dy="6">s</tspan></text>
+<rect x="610" y="235" width="140" height="90" fill="#fde2e2" stroke="#d62828" stroke-width="4"/>
+<text x="680" y="272" text-anchor="middle" font-size="26" font-weight="bold" font-family="Helvetica, Arial, sans-serif" fill="#1f2937">SAR ADC</text>
+<text x="680" y="305" text-anchor="middle" font-size="20" font-family="Helvetica, Arial, sans-serif" fill="#1f2937">10-bit</text>
+<line x1="680" y1="135" x2="680" y2="228" stroke="#1f2937" stroke-width="3"/>
+<polygon points="672,222 688,222 680,235" fill="#1f2937"/>
+<text x="680" y="125" text-anchor="middle" font-size="22" font-family="Helvetica, Arial, sans-serif" fill="#1f2937">V<tspan font-size="15" dy="6">ref</tspan></text>
+<line x1="680" y1="325" x2="680" y2="400" stroke="#1f2937" stroke-width="3"/>
+<polygon points="672,394 688,394 680,408" fill="#1f2937"/>
+<text x="680" y="438" text-anchor="middle" font-size="20" font-family="Helvetica, Arial, sans-serif" fill="#1f2937">0 – 1023</text>
+</svg>

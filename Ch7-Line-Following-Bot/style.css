@@ -1,0 +1,613 @@
+/* Deck-wide helpers for the Basic I/O Interfacing slides (same look as 00-Intro-to-IOT) */
+
+/* ===== TITLE SIZE on all content slides (cover / thank-you not affected) ===== */
+.slidev-layout.l-topic .l-head .fs-h2 { font-size: 2.1rem; line-height: 1.1; }   /* ← TITLE FONT SIZE (theme default 3rem) */
+.slidev-layout.l-topic .l-head .kicker { margin-bottom: 0.3rem; }                 /* ← gap between small label and title */
+
+/* ===== POINT MARKERS like the PDF (Beamer "balls") =====
+   1, 2, 3 …  → numbered balls        a, b …  → lettered balls (class: alpha-sub)
+   •          → round ball bullet      ✔       → check balls (<div class="check"> list)
+   Uses the browser's own list counter, so "2." after a table continues from 2. */
+.slidev-layout ol { list-style: none; padding-left: 2em; }
+.slidev-layout ol > li { position: relative; }
+.slidev-layout ol > li::before {
+  content: counter(list-item);
+  position: absolute; left: -1.75em; top: 0.18em;
+  width: 1.3em; height: 1.3em; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.78em; font-weight: 700; color: #fff; line-height: 1;
+  background: radial-gradient(circle at 35% 30%, #d9534f, #8e1b1b 75%);      /* ← number ball colour */
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.35);
+}
+.alpha-sub ol ol > li::before,
+.alpha-sub ul ol > li::before { content: counter(list-item, lower-alpha); }
+.slidev-layout ul > li { padding-left: 1.5em; }
+.slidev-layout ul > li::before {                                                 /* ← bullet ball */
+  width: 0.5em; height: 0.5em; top: 0.45em;
+  background: radial-gradient(circle at 35% 30%, #d9534f, #8e1b1b 75%);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.35);
+}
+/* the point revealed by the latest click gets a blue ball, like the PDF */
+.slidev-layout li.slidev-vclick-current::before { background: radial-gradient(circle at 35% 30%, #5b7cff, #1a2bb3 75%); }
+/* ✔ check-ball list (Masking Operators slide) */
+.slidev-layout .check ul > li { padding-left: 1.9em; }
+.slidev-layout .check ul > li::before {
+  content: "✔"; width: 1.3em; height: 1.3em; top: 0.12em; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; color: #fff; font-size: 0.78em;
+}
+
+/* Body text size on ALL slides (content under the title; titles are not affected) */
+.slidev-layout .l-body { font-size: 1.45rem; }   /* ← POINT / BODY FONT SIZE for ALL slides */
+
+/* Content starts right under the title on every slide (like the original PDF) */
+.slidev-layout .l-body,
+.slidev-layout .fit { justify-content: flex-start; }
+/* …except the Thank You slide, which stays centred in the middle of the slide */
+.slidev-layout.l-end .fit { justify-content: center; }
+.slidev-layout .l-body { padding-top: 0.25rem; }   /* ← GAP between title and content */
+/* Add `class: centered` to a slide to centre its content vertically instead */
+.centered .slidev-layout .l-body,
+.centered .slidev-layout .fit { justify-content: center; }
+
+/* Point that was revealed by the latest click is shown in the accent colour */
+.slidev-layout .slidev-vclick-current,
+.slidev-layout .slidev-vclick-current strong { color: var(--accent); }
+
+.red { color: var(--accent); }               /* the red "Example:" text from the PDF */
+.example-line { margin: 0.35rem 0 0.35rem 1.6em; }   /* lines like "DDRB = 0xF0" under a point */
+.slidev-layout li { margin: 0.35rem 0; }
+
+/* Images */
+.photo { display: block; max-width: 100%; max-height: 20rem; object-fit: contain; margin: 0.5rem auto; }   /* ← default image size */
+.photo-sm { max-height: 9rem; }
+.photo-lg { max-height: 23rem; }
+
+/* C statements / register names on slides: plain typewriter text like the PDF (no dark box).
+   Colour follows the line, so the "current click" highlight turns it red too. */
+.mono { font-family: "Courier New", Courier, ui-monospace, monospace; font-size: 1.02em; color: inherit; background: none; }   /* ← code text size */
+
+/* Inline code (register names, C statements): readable, not the theme's dark block */
+.slidev-layout .l-body :not(pre) > code { background: color-mix(in srgb, var(--accent) 8%, transparent); color: var(--fg); padding: 0.05em 0.35em; border-radius: 4px; font-size: 0.92em; }
+
+/* 8-bit register tables (<RegTable>) — selectors start with .slidev-layout to beat the theme's table styles */
+.slidev-layout .regtable { display: flex; align-items: center; justify-content: center; gap: 0.8rem; margin: 0.35rem 0; }
+.slidev-layout .regtable-label { font-size: 1.05em; white-space: nowrap; }
+.slidev-layout .regtable table { width: auto; border-collapse: collapse; border: 3px solid var(--fg); font-size: 1em; }   /* ← table text size */
+.slidev-layout .regtable thead th,
+.slidev-layout .regtable tbody td,
+.slidev-layout .regtable tbody tr:last-child td { border: 1px solid var(--fg); padding: 0.1rem 0.9rem; text-align: center; min-width: 2.6rem; line-height: 1.3; }   /* ← cell spacing */
+.slidev-layout .regtable thead th { font-weight: 700; color: var(--fg); font-size: 1em; font-family: inherit; text-transform: none; letter-spacing: normal; }
+.slidev-layout .regtable .reg-red { color: #e53935; font-weight: 700; }
+.op-word { text-align: center; font-weight: 700; margin: 0.1rem 0; }
+
+/* Truth tables */
+.slidev-layout table.truth { width: auto; margin: 0.5rem auto; border-collapse: collapse; border: 3px solid var(--fg); }
+.slidev-layout table.truth thead th,
+.slidev-layout table.truth tbody td,
+.slidev-layout table.truth tbody tr:last-child td { border: 1px solid var(--fg); padding: 0.15rem 1.4rem; text-align: center; line-height: 1.3; }
+.slidev-layout table.truth thead th { color: var(--accent); font-weight: 700; font-family: inherit; font-size: 1em; text-transform: none; letter-spacing: normal; }
+
+/* Add `class: cols-center` to a two-cols slide to centre the right text against the left image */
+.cols-center .two-cols { align-items: center; grid-template-columns: 3fr 2fr; }   /* ← image : text width */
+.cols-center .two-cols .col:last-child li { font-size: 1.15em; margin: 0.7rem 0; }  /* ← right-side point size / spacing */
+
+/* Agenda */
+/* Add `class: main-gap` to a slide for extra space between the MAIN (bullet) points only;
+   numbered sub-points keep their normal spacing */
+.main-gap .slidev-layout .l-body ul > li { margin: 1.5rem 0; }          /* ← gap between main points */
+.main-gap .slidev-layout .l-body ul > li:first-child { margin-top: 0; }
+.main-gap .slidev-layout .l-body { padding-top: 2.2rem; }               /* ← gap between title and first point */
+
+/* Add `class: title-gap` to a slide for more space between the title and the first point */
+.title-gap .slidev-layout .l-body { padding-top: 1.7rem; }                /* ← gap between title and points */
+.title-gap .slidev-layout .l-body li { margin: 0.6rem 0; }              /* ← space between points */
+.title-gap .slidev-layout .l-body li li { margin: 0.35rem 0; }           /* ← space between sub-points */
+/* Add `class: title-gap roomy` to a SHORT slide for even bigger gaps (e.g. slide 10) */
+.roomy.title-gap .slidev-layout .l-body { padding-top: 2.6rem; }          /* ← gap between title and points */
+.roomy.title-gap .slidev-layout .l-body li { margin: 1.8rem 0; }          /* ← space between points */
+.roomy.title-gap .slidev-layout .l-body li li { margin: 0.9rem 0; }       /* ← space between sub-points */
+/* Add `class: spread` to space out every line of a slide: points, register table and "DDRB = …" lines (e.g. slide 11) */
+.spread .slidev-layout .l-body { padding-top: 1.2rem; }                  /* ← gap between title and first line */
+.spread .slidev-layout .l-body li { margin: 1rem 0; }                    /* ← space between points */
+.spread .slidev-layout .l-body .regtable { margin: 1.1rem 0; }           /* ← space around the register table */
+.spread .slidev-layout .l-body .example-line > div { margin: 0.6rem 0; } /* ← space between "DDRB = …" lines */
+.spread .slidev-layout .l-body .photo { margin-top: 1.6rem; }            /* ← space between the points and a picture */
+/* Add `class: centered wide-gaps` to a short slide: points stay in the middle, spread out to fill the slide (e.g. slide 24) */
+.wide-gaps .slidev-layout .l-body li { margin: 2.2rem 0; }              /* ← space between points */
+/* Add `class: centered mid-gaps` for a slide with longer points (e.g. slide 31): medium spacing */
+.mid-gaps .slidev-layout .l-body li { margin: 1.4rem 0; }               /* ← space between points */
+/* Add `big-truth` to a slide's class to show its truth table larger (e.g. slide 28) */
+.big-truth .slidev-layout table.truth { font-size: 1.12em; margin-top: 0.4rem; }      /* ← truth table size */
+.big-truth .slidev-layout table.truth thead th,
+.big-truth .slidev-layout table.truth tbody td,
+.big-truth .slidev-layout table.truth tbody tr:last-child td { padding: 0 2.2rem; line-height: 1.2; }   /* ← truth table cell spacing */
+
+/* Add `class: center-points` + wrap the list in <div class="center-list"> to show a short list
+   centred on the slide, bigger and more spaced (e.g. "Accessing Ports") */
+.center-points .slidev-layout .l-body,
+.center-points .slidev-layout .fit { justify-content: center; }
+.center-points .lead-line { font-size: 1.3em; }                                 /* ← "Each Port has three associated registers with it:" size */
+.center-points .center-list { width: fit-content; margin: 1.2rem auto 0; }
+.center-points .center-list ol > li { font-size: 1.4em; margin: 1.3rem 0; }   /* ← point size / gap between points */
+.center-points .reg-name { display: inline-block; min-width: 4.3em; font-weight: 600; }   /* keeps "x = B, C and D" aligned */
+
+/* ===== "What are Ports?" diagram: input devices → ATmega328P → output devices ===== */
+.port-diagram { display: flex; align-items: center; justify-content: center; gap: 0.6rem; margin: 0.9rem 2.6rem 0 0; font-size: 0.69em; }   /* ← diagram size / gap above it */
+.pd-group { border: 1.5px solid color-mix(in srgb, var(--fg) 18%, transparent); border-radius: 0.7rem; padding: 0.55rem 0.9rem 0.7rem; }
+.pd-head { font-family: var(--font-mono, monospace); font-size: 0.68em; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.45rem; text-align: center; }
+.pd-items { display: flex; gap: 0.6rem; }
+.pd-grid { display: grid; grid-template-columns: repeat(2, auto); gap: 0.4rem 0.6rem; }
+.pd-item { display: flex; align-items: center; gap: 0.4rem; padding: 0.25rem 0.6rem; border-radius: 0.45rem; background: color-mix(in srgb, var(--accent) 7%, transparent); white-space: nowrap; }
+.pd-item .tahta-icon { color: var(--accent); flex: none; }
+.pd-link { display: flex; flex-direction: column; align-items: center; gap: 0.2rem; min-width: 5.5rem; }
+.pd-label { font-size: 0.7em; color: var(--fg-dim); white-space: nowrap; }
+.pd-arrow { position: relative; display: block; width: 100%; height: 2px; background: var(--accent); }
+.pd-arrow::after { content: ""; position: absolute; right: -1px; top: 50%; transform: translateY(-50%); border-left: 0.55rem solid var(--accent); border-top: 0.38rem solid transparent; border-bottom: 0.38rem solid transparent; }
+.pd-chip { display: flex; flex-direction: column; align-items: center; padding: 0.7rem 1.1rem; border-radius: 0.6rem; background: var(--fg); color: var(--ink, #fff); position: relative; }
+.pd-chip .tahta-icon { color: var(--accent); }
+.pd-chip-name { font-weight: 700; font-size: 1.05em; margin-top: 0.15rem; }
+.pd-chip-sub { font-size: 0.65em; opacity: 0.75; }
+/* the diagram keeps its own colours when its click is the "current" one */
+.slidev-layout .port-diagram .slidev-vclick-current { color: inherit; }
+.slidev-layout .port-diagram .pd-chip.slidev-vclick-current { color: var(--ink, #fff); }
+
+/* thin divider under the title (agenda slide only) */
+.agenda-slide .slidev-layout .l-head { padding-bottom: 0.7rem; border-bottom: 1px solid color-mix(in srgb, var(--fg) 15%, transparent); }
+.agenda-slide .slidev-layout .l-body { padding-top: 1.2rem; }                               /* ← gap: title divider → section label */
+/* section label: smaller than the title, clearly a label */
+.agenda-one .kicker { font-size: 0.95rem; margin: 0 0 0.6rem; }                            /* ← section label size */
+/* items: 2 aligned columns, read top-to-bottom (01–04 left, 05–08 right) */
+.agenda-one .agenda-grid {
+  display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, auto);
+  grid-auto-flow: column; column-gap: 3.5rem;
+}
+.agenda-one a.agenda-item {
+  display: grid; grid-template-columns: 2.4rem 1fr; align-items: baseline;
+  padding: 0.85rem 0;                                                                         /* ← row spacing */
+  border-bottom: 1px solid color-mix(in srgb, var(--fg) 10%, transparent);                    /* light row separator */
+  color: inherit; text-decoration: none; cursor: pointer;
+}
+.agenda-one .agenda-num { font-size: 1.15rem; min-width: 0; font-variant-numeric: tabular-nums; }   /* ← number size */
+.agenda-one .agenda-topic { font-size: 1.3rem; }                                                    /* ← item size */
+.agenda-one a.agenda-item:hover .agenda-topic { color: var(--accent); }
+
+/* ===================== Motion Control deck additions ===================== */
+
+/* Agenda with two sections side by side */
+.agenda-two { display: grid; grid-template-columns: 1fr 1fr; column-gap: 3.5rem; }
+.agenda-two .kicker { font-size: 0.95rem; margin: 0 0 0.4rem; }
+.agenda-two a.agenda-item {
+  display: grid; grid-template-columns: 2.4rem 1fr; align-items: baseline;
+  padding: 1.9rem 0; border-bottom: 1px solid color-mix(in srgb, var(--fg) 10%, transparent);
+  color: inherit; text-decoration: none; cursor: pointer;
+}
+.agenda-two .agenda-num { font-size: 1.35rem; min-width: 0; }
+.agenda-two .agenda-topic { font-size: 1.7rem; }
+.agenda-two a.agenda-item:hover .agenda-topic { color: var(--accent); }
+
+/* Types of motion: 2x2 grid of robots with wheel arrows */
+.mgrid { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; grid-auto-flow: column; gap: 1.2rem 4rem; justify-items: center; margin-top: 0.4rem; }
+.mcell { display: flex; flex-direction: column; align-items: center; }
+.mbot { display: flex; align-items: center; gap: 0.6rem; }
+.mbot img { height: 9.6rem; }                                                     /* ← robot size */
+.arr { width: 2.2rem; text-align: center; font-size: 3.4rem; line-height: 1; font-weight: 700; color: #e01b1b; }   /* ← arrow size */
+.mlabel { font-weight: 700; font-size: 1.15em; margin-top: 0.3rem; }
+
+/* Direction control of DC motor: two pictures with captions */
+.motor-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: end; margin-top: 0.6rem; }
+.motor-pair figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 0.6rem; }
+.motor-pair figcaption { font-size: 1.1em; }
+.motor-pair img { height: 19.5rem; object-fit: contain; }                          /* ← motor picture size */
+
+/* Bullets + picture side by side (H-Bridge slides) */
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; height: 100%; }
+.split img { width: 100%; max-height: 22rem; object-fit: contain; }              /* ← H-bridge picture size */
+.split li { margin: 1.1rem 0; }                                                   /* ← space between points */
+
+/* Logic table */
+.slidev-layout table.logic { width: auto; margin: 0.4rem auto 0; border-collapse: collapse; border: 3px solid var(--fg); font-size: 1.15em; }   /* ← logic table size */
+.slidev-layout table.logic th,
+.slidev-layout table.logic td,
+.slidev-layout table.logic tbody tr:last-child td { border: 1px solid var(--fg); padding: 0.22rem 1.9rem; text-align: center; line-height: 1.3; font-family: inherit; font-size: 1em; text-transform: none; letter-spacing: normal; color: var(--fg); font-weight: 400; }
+.slidev-layout table.logic thead tr:last-child th { border-bottom: 3px solid var(--fg); }
+.slidev-layout table.logic .one { color: #e01b1b; font-weight: 700; }
+.agenda-two .kicker { white-space: nowrap; }
+/* logic table keeps its own colours (no "current click" red on the 0s) */
+.slidev-layout table.logic .slidev-vclick-current { color: var(--fg); }
+.slidev-layout table.logic .one.slidev-vclick-current { color: #e01b1b; }
+/* Add `class: centered gap-6` for a centred list of ~6 points (slide 8) */
+.gap-6 .slidev-layout .l-body li { margin: 0.95rem 0; }                 /* ← space between points */
+.agenda-slide .slidev-layout .l-body { padding-top: 2rem; }                  /* ← agenda: gap under the title line */
+
+/* ===================== Wheel encoder slides ===================== */
+.agenda-two { grid-template-columns: repeat(3, 1fr); column-gap: 2.5rem; }
+.agenda-two .kicker { white-space: normal; min-height: 2.6em; }
+.agenda-two .agenda-topic { font-size: 1.3rem; }
+.agenda-two .agenda-num { font-size: 1.15rem; }
+.agenda-two a.agenda-item { padding: 0.75rem 0; }
+
+.enc-slide .slidev-layout .l-body { padding-top: 1rem; }
+.enc-slide .slidev-layout .l-body li { margin: 0.55rem 0; }                   /* ← space between points */
+.enc-fig { display: block; margin: 0.8rem auto 0; max-width: 100%; }         /* diagrams under the points */
+
+.formula { border: 2px solid var(--accent); border-radius: 0.8rem; padding: 1rem 1.3rem; display: flex; flex-direction: column; gap: 0.7rem; background: color-mix(in srgb, var(--accent) 6%, transparent); }
+.formula-head { font-size: 0.8em; color: var(--fg-dim); }
+
+.loop { display: grid; grid-template-columns: 1fr 2.2rem 1fr 2.2rem 1fr 2.2rem 1fr; align-items: stretch; margin-top: 1.2rem; }
+.loop-box { border: 2px solid var(--accent); border-radius: 0.7rem; padding: 0.8rem 0.7rem; display: flex; flex-direction: column; gap: 0.4rem; text-align: center; background: color-mix(in srgb, var(--accent) 7%, transparent); }
+.loop-box span { font-size: 0.78em; color: var(--fg-dim); }
+.loop-arrow { display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: 1.8rem; font-weight: 700; }
+.loop-back { text-align: center; color: var(--accent); font-weight: 700; margin: 1rem 0 0; }
+.enc-note { margin-top: 1.6rem; padding: 0.8rem 1.1rem; border-left: 4px solid var(--accent); background: color-mix(in srgb, var(--accent) 6%, transparent); font-size: 0.9em; }
+
+.enc-circuit .two-cols { grid-template-columns: 1fr 1.25fr; gap: 1.5rem; }
+.enc-circuit .two-cols .col:last-child li { font-size: 0.9em; margin: 0.55rem 0; }   /* ← circuit slide point size */
+
+.slidev-layout table.enc-table { font-size: 1em; margin-top: 1rem; }
+.slidev-layout table.enc-table th { font-weight: 700; }
+.slidev-layout table.enc-table th, .slidev-layout table.enc-table td { padding: 0.5rem 1rem; }
+
+.enc-code .slidev-layout .l-body { padding-top: 0.6rem; }
+.enc-code .two-cols { gap: 1.5rem; }
+.enc-code .slidev-code { font-size: 0.82rem !important; line-height: 1.5 !important; }       /* ← code size */
+
+/* agenda: sections 1 + 2 stacked left, section 3 right */
+.agenda-two { grid-template-columns: 1fr 1fr; column-gap: 3.5rem; }
+.agenda-two .kicker { min-height: 0; white-space: nowrap; margin: 0 0 0.2rem; }
+.agenda-two .kicker.sec2 { margin-top: 1.2rem; }
+.agenda-two a.agenda-item { padding: 0.65rem 0; }
+.agenda-two .agenda-topic { font-size: 1.4rem; }                                  /* ← agenda item size */
+
+/* code slide */
+.code-head { font-weight: 700; font-size: 1.15em; margin-bottom: 0.6rem; }
+.slidev-layout pre.codebox { background: #f6f7f9 !important; border: 1px solid #d6d9de; border-radius: 0.6rem; padding: 0.9rem 1rem; margin: 0;
+  font-family: "Courier New", Consolas, monospace; font-size: 0.88rem; line-height: 1.55; color: #111; white-space: pre; overflow: hidden; }   /* ← code size */
+.enc-code .two-cols { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 1.2rem; }
+.enc-code .two-cols .col { min-width: 0; }
+
+/* Encoder → Slave → Master chain (How the Encoder is Connected) */
+.chain { display: grid; grid-template-columns: 1fr 7rem 1fr 7rem 1fr; align-items: stretch; margin: 1.4rem 0 1.4rem; }
+.chain-box { border: 2px solid var(--accent); border-radius: 0.8rem; padding: 0.9rem 0.6rem; text-align: center; display: flex; flex-direction: column; gap: 0.35rem; background: color-mix(in srgb, var(--accent) 7%, transparent); }
+.chain-box b { font-size: 1.05em; }
+.chain-box span { font-size: 0.72em; color: var(--fg-dim); }
+.chain-link { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+.chain-link span { font-size: 0.62em; color: var(--fg-dim); line-height: 1.25; }
+.chain-link i { font-style: normal; color: var(--accent); font-size: 2rem; font-weight: 700; line-height: 1; }
+.slidev-layout .chain .slidev-vclick-current { color: inherit; }
+.enc-circuit .two-cols { grid-template-columns: 1.15fr 1fr; }                                /* ← schematic : points width */
+.enc-circuit .two-cols .col:last-child li { font-size: 1.05em; margin: 1rem 0; }
+
+/* chain alignment: equal boxes, centred content, labels never overflow */
+.chain { grid-template-columns: minmax(0,1fr) 9rem minmax(0,1fr) 9rem minmax(0,1fr); }
+.chain-box { justify-content: center; padding: 1rem 0.6rem; min-height: 9rem; }
+.chain-box b { font-size: 1em; white-space: nowrap; }
+.chain-box span:empty { display: none; }
+.chain-link { gap: 0.35rem; padding: 0 0.3rem; }
+.chain-link span { white-space: nowrap; }
+.chain { grid-template-columns: minmax(0,1fr) 8rem minmax(0,1fr) 8rem minmax(0,1fr); }   /* ← box : arrow-column widths */
+.chain-box b { font-size: 0.9em; }                                                          /* ← box title size */
+.chain-link span { font-size: 0.56em; }                                                     /* ← arrow label size */
+
+/* ===================== PWM deck additions ===================== */
+/* Image on top + points under it */
+.pwm-slide .slidev-layout .l-body { padding-top: 0.6rem; }
+.pwm-fig { display: block; margin: 0.4rem auto 0.6rem; max-width: 100%; object-fit: contain; }   /* ← each image's height is set on the slide */
+.pwm-slide .slidev-layout .l-body li { margin: 0.4rem 0; }                       /* ← space between points */
+.pwm-lead { margin-bottom: 0.6rem; }
+
+/* Points left, picture right (Timer / Counter) */
+.pwm-split .slidev-layout .l-body { padding-top: 1rem; }
+.pwm-split .split { grid-template-columns: 1.15fr 1fr; align-items: center; }
+.pwm-split .split li { margin: 1rem 0; }                                         /* ← space between points */
+.pwm-eq { text-align: center; margin-top: 0.6rem; font-size: 1.05em; }
+
+/* Desmos link */
+.pwm-link { color: #1a2bb3; font-weight: 700; text-decoration: underline; }
+
+/* Comparison + frequency tables */
+.slidev-layout table.pwm-table { width: auto; margin: 0 auto; border-collapse: collapse; border: 3px solid var(--fg); font-size: 1em; }   /* ← table text size */
+.slidev-layout table.pwm-table th,
+.slidev-layout table.pwm-table td,
+.slidev-layout table.pwm-table tbody tr:last-child td { border: 1px solid var(--fg); padding: 0.4rem 1.2rem; text-align: left; line-height: 1.3;
+  font-family: inherit; font-size: 1em; text-transform: none; letter-spacing: normal; color: var(--fg); }
+.slidev-layout table.pwm-table th { font-weight: 700; }
+.slidev-layout table.pwm-table thead th { border-bottom: 3px solid var(--fg); }
+.slidev-layout table.pwm-table .slidev-vclick-current td { color: var(--accent); }
+
+/* PWM Frequency slide */
+.pwm-freq .slidev-layout .l-body { padding-top: 0.5rem; }
+.slidev-layout table.pwm-table.freq { font-size: 0.92em; }                       /* ← frequency table size */
+.slidev-layout table.pwm-table.freq th,
+.slidev-layout table.pwm-table.freq td,
+.slidev-layout table.pwm-table.freq tbody tr:last-child td { text-align: center; padding: 0.12rem 2.2rem; }
+.freq-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; margin-top: 1rem; font-size: 0.85em; }   /* ← formula row size */
+.freq-head { font-weight: 700; margin-bottom: 0.5rem; }
+.freq-eq { font-size: 1.1em; }
+.slidev-layout .freq-where { margin: 0; }
+.slidev-layout .freq-where li { margin: 0.15rem 0; }
+
+/* PWM Output Modes */
+.pwm-modes .slidev-layout .l-body { padding-top: 1rem; }
+.pwm-modes .slidev-layout .l-body li { margin: 0.45rem 0; }                       /* ← space between points */
+.pwm-modes .slidev-layout .l-body li li { margin: 0.25rem 0; font-size: 0.92em; }
+
+/* Arduino API slide */
+.pwm-api .slidev-layout .l-body { padding-top: 0.8rem; }
+.api-call { font-weight: 700; font-size: 1.15em; margin-bottom: 1rem; }
+.api-line { margin: 0.75rem 0; }                                                  /* ← space between lines */
+.api-note { margin-top: 1.2rem; }
+.api-note p { margin: 0 0 0.4rem; }
+.api-note li { margin: 0.45rem 0; }
+
+/* --- fixes after first render --- */
+.big-pts .slidev-layout .l-body li { font-size: 1.15em; }                       /* ← point size on short slides (3, 4, 8) */
+.pwm-split .split { height: auto; grid-template-columns: 1.3fr 1fr; }           /* ← points : picture width */
+.pwm-split .split li { margin: 0.7rem 0; }
+.pwm-tight .slidev-layout .l-body li { margin: 0.2rem 0; font-size: 0.95em; }   /* Phase Correct slide: 5 points under the picture */
+.pwm-cmp .slidev-layout .l-body { padding-top: 1.1rem; }
+.slidev-layout .pwm-cmp table.pwm-table, .pwm-cmp .slidev-layout table.pwm-table { font-size: 0.95em; }   /* ← comparison table size */
+.pwm-cmp .slidev-layout table.pwm-table th,
+.pwm-cmp .slidev-layout table.pwm-table td,
+.pwm-cmp .slidev-layout table.pwm-table tbody tr:last-child td { padding: 0.45rem 1.1rem; white-space: nowrap; }
+.freq-row p { margin: 0 0 0.3rem; }
+.freq-row .katex-display { margin: 0.4rem 0; text-align: left; }
+.freq-row .katex-display > .katex { text-align: left; font-size: 1.05em; }
+.slidev-layout .freq-where ul { margin: 0; }
+.slidev-layout .freq-where li { margin: 0.1rem 0; }
+/* --- second pass --- */
+.pwm-cmp .slidev-layout table.pwm-table th,
+.pwm-cmp .slidev-layout table.pwm-table td,
+.pwm-cmp .slidev-layout table.pwm-table tbody tr:last-child td { white-space: normal; padding: 0.45rem 1rem; }   /* ← comparison table cell spacing */
+.pwm-cmp .slidev-layout table.pwm-table td:first-child { white-space: nowrap; }
+.pwm-split .split { grid-template-columns: 1.75fr 1fr; gap: 1.2rem; }           /* ← points : picture width (Timer / Counter) */
+.pwm-split .split li { margin: 0.55rem 0; }
+.freq-row .katex-display > .katex { font-size: 1.2em; }                          /* ← formula size (PWM Frequency) */
+.pwm-cmp .slidev-layout table.pwm-table { width: 100%; font-size: 1.02em; }      /* ← comparison table: full width, text size */
+
+/* ===================== Ultrasonic Sensor deck additions ===================== */
+/* Agenda: one section, one column */
+.agenda-single { width: 34rem; }
+.agenda-single .kicker { font-size: 0.95rem; margin: 0 0 0.3rem; }
+.agenda-single a.agenda-item {
+  display: grid; grid-template-columns: 2.6rem 1fr; align-items: baseline;
+  padding: 0.75rem 0; border-bottom: 1px solid color-mix(in srgb, var(--fg) 10%, transparent);
+  color: inherit; text-decoration: none; cursor: pointer;
+}
+.agenda-single .agenda-num { font-size: 1.2rem; min-width: 0; }
+.agenda-single .agenda-topic { font-size: 1.45rem; }                             /* ← agenda item size */
+.agenda-single a.agenda-item:hover .agenda-topic { color: var(--accent); }
+
+/* Five-point slide (HC-SR04 Features) */
+.us-gaps .slidev-layout .l-body li { margin: 1.6rem 0; }                         /* ← space between points */
+
+/* Picture slides */
+.us-fig-slide .slidev-layout .l-body { padding-top: 0.8rem; }
+.us-formula { text-align: center; font-size: 1.15em; margin-top: 0.6rem; }      /* ← formula under the picture */
+.us-formula p { margin: 0; }
+
+/* ===================== ADC deck additions ===================== */
+/* Pictures that replace each other click by click (SAR example, timing diagram) */
+.stack { display: grid; justify-items: center; align-items: end; }
+.stack > * { grid-area: 1 / 1; }
+.sar-stack img { height: 18rem; }                                                 /* ← SAR picture size */
+.timing-stack > div { width: 100%; }
+.timing-stack img { display: block; height: 15.5rem; margin: 0.6rem auto 0; }     /* ← timing picture size */
+.adc-step { font-weight: 700; font-size: 1.05em; min-height: 3.2em; }            /* ← step text size */
+.adc-q { margin-bottom: 0.6rem; }                                                 /* SAR / multiple-reading question */
+.adc-q.center { text-align: center; margin-bottom: 1.6rem; font-size: 1.1em; }
+
+/* What is an ADC */
+.adc-what .slidev-layout .l-body { padding-top: 0.8rem; }
+.adc-what .check li { margin: 0.5rem 0; }
+.adc-block { display: block; height: 9.5rem; margin: 0.4rem auto 0.6rem; }        /* ← ADC block picture size */
+.slidev-layout ol.adc-steps { margin: 0 0 0 3.2rem; }
+.slidev-layout ol.adc-steps li { margin: 0.25rem 0; }
+
+/* Why do we need an ADC */
+.adc-need .slidev-layout .l-body { padding-top: 1.6rem; }
+.adc-need .slidev-layout .l-body li { margin: 0 0 1.3rem; }                        /* ← space between questions */
+.adc-ans { font-size: 0.85em; margin-top: 0.2rem; }
+.slidev-layout .adc-need li.slidev-vclick-current b,
+.slidev-layout li .adc-ans.slidev-vclick-current { color: var(--accent); }
+
+/* Points + picture side by side */
+.adc-split .slidev-layout .l-body { padding-top: 0.8rem; }
+.adc-split .split { height: auto; grid-template-columns: 1.15fr 1fr; gap: 1.5rem; }
+.adc-split .split li { margin: 0.9rem 0; }                                        /* ← space between points */
+.adc-split .split img { max-height: 20rem; }                                      /* ← picture size */
+
+.adc-fig .slidev-layout .l-body { padding-top: 0.6rem; }
+
+/* ATmega328p (7 points) / TLC1543 (6 points) */
+.adc-list .slidev-layout .l-body li { margin: 0.75rem 0; }
+.adc-list6 .slidev-layout .l-body li { margin: 1.05rem 0; }
+/* Sampling: wider text column so the 4 points fit without shrinking */
+.adc-sampling .split { grid-template-columns: 1.5fr 1fr; }                        /* ← points : picture width */
+.adc-sampling .split li { margin: 0.55rem 0; }
+.adc-sampling .split img { max-height: 16rem; }
+/* Pin connection picture */
+.slidev-layout img.pins-fig { width: 92%; height: auto; max-height: none; }      /* ← pin diagram size */
+
+/* ===================== Internal ADC (Spark Bot) slides ===================== */
+.small-note { font-size: 0.7em; color: var(--fg-dim); }
+
+/* Channel table */
+.slidev-layout table.pwm-table.adc-map { width: 100%; margin-top: 0.4rem; }
+.slidev-layout table.pwm-table.adc-map th, .slidev-layout table.pwm-table.adc-map td,
+.slidev-layout table.pwm-table.adc-map tbody tr:last-child td { padding: 0.3rem 1.1rem; }   /* ← table row spacing */
+.adc-map + .enc-note, .enc-note { margin-top: 1rem; }
+
+/* Battery formulas */
+.adc-batt .slidev-layout .l-body { padding-top: 0.8rem; }
+.adc-batt .check li { margin: 0.55rem 0; }
+.batt-eqs { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 0.8rem; }
+.batt-eqs .katex-display { margin: 0.3rem 0; }
+.batt-eqs .katex { font-size: 1.1em; }                                             /* ← formula size */
+
+/* Block-diagram row: Inside the ADC / Steps to read a channel */
+.pipe { display: flex; align-items: stretch; justify-content: center; gap: 0.35rem; margin: 1.2rem 0 1.4rem; }
+.pipe > i { font-style: normal; color: var(--accent); font-size: 1.7rem; font-weight: 700; display: flex; align-items: center; }
+.pipe-box { flex: 1 1 0; min-width: 0; border: 2px solid var(--accent); border-radius: 0.7rem; padding: 0.7rem 0.4rem;
+  display: flex; flex-direction: column; justify-content: center; gap: 0.3rem; text-align: center;
+  background: color-mix(in srgb, var(--accent) 7%, transparent); }
+.pipe-box b { font-size: 0.85em; }                                                 /* ← box title size */
+.pipe-box span { font-size: 0.62em; color: var(--fg-dim); line-height: 1.3; }     /* ← box text size */
+.slidev-layout .pipe .slidev-vclick-current { color: inherit; }
+.pipe.steps { margin-bottom: 1rem; }
+.enc-slide pre.codebox { font-size: 0.8rem; }                                      /* ← code size */
+
+/* ADC registers */
+.adc-regs .slidev-layout .l-body { padding-top: 0.6rem; }
+.reg-block { margin: 0 0 1.1rem; }
+.reg-name { font-weight: 700; color: var(--accent); margin-bottom: 0.3rem; }
+.slidev-layout table.bitreg { width: 100%; border-collapse: collapse; border: 3px solid var(--fg); table-layout: fixed; }
+.slidev-layout table.bitreg td,
+.slidev-layout table.bitreg tbody tr:last-child td { border: 1px solid var(--fg); text-align: center; padding: 0.3rem 0; font-size: 0.85em; font-weight: 600; color: var(--fg); }
+.reg-desc { font-size: 0.78em; margin-top: 0.35rem; }                             /* ← register description size */
+.slidev-layout .reg-block.slidev-vclick-current .reg-desc { color: var(--fg); }
+/* White line sensor slide: points full width, picture under them */
+.adc-cny .slidev-layout .l-body { padding-top: 0.6rem; }
+.adc-cny .check li { margin: 0.4rem 0; }                                           /* ← space between points */
+.cny-fig { display: block; height: 9.5rem; margin: 0.6rem auto 0; }              /* ← sensor picture size */
+/* Slide 11: bigger arrows between the boxes */
+.chain-link i { font-size: 3.4rem; }                                               /* ← arrow size */
+.chain-link span { font-size: 0.62em; }
+
+/* Internal architecture slide: picture left, points right */
+.adc-arch .slidev-layout .l-body { padding-top: 0.6rem; }
+.arch { display: grid; grid-template-columns: 1fr 1.15fr; gap: 1.6rem; align-items: center; }   /* ← picture : points width */
+.arch img { width: 100%; max-height: 21rem; object-fit: contain; }
+.arch li { font-size: 0.82em; margin: 0.5rem 0; }                                   /* ← point size / spacing */
+/* Slide 11: draw the arrows as a thick line + solid head (the → character stays thin) */
+.chain-link i { font-size: 0; display: block; position: relative; width: 78%; height: 5px;      /* ← arrow length / thickness */
+  background: var(--accent); border-radius: 3px; margin-top: 0.5rem; }
+.chain-link i::after { content: ""; position: absolute; right: -0.9rem; top: 50%; transform: translateY(-50%);
+  border-left: 1.2rem solid var(--accent); border-top: 0.75rem solid transparent; border-bottom: 0.75rem solid transparent; }   /* ← arrow head size */
+/* Internal architecture slide: short points, larger */
+.arch { grid-template-columns: 1.2fr 1fr; }                                         /* ← picture : points width */
+.arch img { max-height: 22rem; }                                                    /* ← picture size */
+.arch li { font-size: 1em; margin: 1rem 0; }                                        /* ← point size / spacing */
+.adc-arch .arch { grid-template-columns: 1.25fr 1fr; gap: 1.2rem; }               /* ← picture : points width */
+.adc-arch .arch img { max-height: 25rem; }                                         /* ← picture size */
+.adc-arch .arch li { font-size: 0.9em; margin: 1.1rem 0; white-space: nowrap; }    /* ← point size / spacing */
+.adc-arch .arch { grid-template-columns: 1.4fr 1fr; gap: 1rem; }                  /* ← picture : points width */
+.adc-arch .arch li { font-size: 0.86em; margin: 1.2rem 0; }                       /* ← point size / spacing */
+
+/* Calculation of analog value to digital value */
+.adc-calc .slidev-layout .l-body { padding-top: 0.6rem; }
+.calc-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 1.6rem; align-items: start; }   /* ← left : right width */
+.calc-box { border: 2px solid var(--accent); border-radius: 0.8rem; padding: 0.5rem 1rem;
+  background: color-mix(in srgb, var(--accent) 6%, transparent); }
+.calc-box p, .calc-res p, .calc-ex p { margin: 0.2rem 0; }
+.calc-box .katex { font-size: 1.05em; }                                               /* ← generic formula size */
+.calc-res { margin-top: 1rem; }
+.slidev-layout table.pwm-table.res-table { width: 100%; margin-top: 0.4rem; font-size: 0.85em; }     /* ← resolution table size */
+.slidev-layout table.pwm-table.res-table th, .slidev-layout table.pwm-table.res-table td,
+.slidev-layout table.pwm-table.res-table tbody tr:last-child td { padding: 0.25rem 0.8rem; text-align: center; }
+.slidev-layout table.pwm-table.res-table tr.hl td { font-weight: 700; color: var(--accent); }
+.calc-ex .katex-display { margin: 0.55rem 0; }
+.calc-ex .katex { font-size: 1.05em; }                                                /* ← example formula size */
+.slidev-layout .adc-calc .slidev-vclick-current { color: inherit; }
+.adc-calc .slidev-layout .slidev-vclick-current { color: var(--fg); }               /* keep the blue Vin / green result colours */
+.calc-ex .katex-display { margin: 0.9rem 0; }                                        /* ← space between examples */
+
+/* ===================== Line Follower deck additions ===================== */
+.lf-lead { margin-bottom: 0.4rem; }
+.lf-fig .slidev-layout .l-body { padding-top: 0.6rem; }
+.lf-fig .slidev-layout .l-body li { margin: 0.35rem 0; }
+
+/* Points + picture side by side */
+.lf-split .slidev-layout .l-body { padding-top: 0.8rem; }
+.lf-split .split { height: auto; grid-template-columns: 1.1fr 1fr; gap: 1.5rem; }
+.lf-split .split li { margin: 1.4rem 0; }                                         /* ← space between points */
+.lf-split .split img { max-height: 20rem; }                                       /* ← picture size */
+
+/* WLF sensor */
+.lf-wlf .slidev-layout .l-body { padding-top: 0.4rem; }
+.wlf-img { display: block; height: 7.5rem; margin: 0 auto 0.6rem; }               /* ← sensor photo size */
+.lf-wlf .check li { margin: 0.45rem 0; }
+
+/* Five sensor boxes (Bang-Bang) */
+.lf-bang .slidev-layout .l-body { padding-top: 0.4rem; }
+.lf-bang .check li { margin: 0.2rem 0; font-size: 0.86em; }                       /* ← point size / spacing */
+.sensor-row { display: flex; gap: 1.2rem; justify-content: center; }
+.sbox { width: 3rem; height: 3rem; border: 2px solid var(--fg); display: flex; align-items: center; justify-content: center; font-size: 1.1em; }
+.bang-row { position: absolute; right: 3.5rem; top: 9.6rem; }                     /* ← position of the 0 1 0 0 0 boxes */
+.bang-row .sbox:nth-child(2) { background: var(--fg); color: var(--bg, #fff); }
+
+/* Weighted average */
+.lf-wavg .slidev-layout .l-body { padding-top: 0.4rem; }
+.lf-wavg .check li { margin: 0.35rem 0; }
+.wavg-eq { margin: -0.2rem 0 0.2rem 2rem; font-size: 0.78em; }                     /* ← formula size */
+.wavg-eq .katex-display { margin: 0.2rem 0; text-align: left; }
+.slidev-layout ol.wavg-cases { margin: 0 0 0 3.4rem; font-size: 0.9em; }
+.slidev-layout ol.wavg-cases li { margin: 0.15rem 0; }
+.lf-wavg .check li:nth-child(3) { margin-bottom: 0; }
+.lf-wavg .check { display: flex; flex-direction: column; }
+
+/* Weighted average example */
+.lf-example .slidev-layout .l-body { padding-top: 0.2rem; }
+.wex { display: flex; flex-direction: column; align-items: center; gap: 0.35rem; }
+.wex-head { font-weight: 700; font-size: 1.05em; margin-top: 0.3rem; }
+.wex-row { display: grid; grid-template-columns: repeat(5, 6.2rem); gap: 1.2rem; text-align: center; }   /* ← column width */
+.wex-row.labels div { font-weight: 700; }
+.wex-row.boxes div { border: 2px solid var(--fg); padding: 0.45rem 0; }
+.wex-row.prod div { color: var(--accent); font-weight: 700; }
+.wex-result { text-align: center; margin-top: 1rem; font-size: 1.1em; }
+.wex-result p { margin: 0; }
+
+/* PID flow pictures */
+.pid-stack img { height: 23rem; }                                                  /* ← PID flow picture size */
+
+/* P controller: cases list sits under "Cases:" */
+.lf-p .slidev-layout .l-body { padding-top: 0.6rem; }
+.lf-p .check li { margin: 0.45rem 0; }
+.slidev-layout ol.p-cases { margin: 0 0 0 3.4rem; font-size: 0.9em; }
+.slidev-layout ol.p-cases li { margin: 0.15rem 0; }
+
+/* PD (6 points) / PID (7 points) */
+.lf-list .slidev-layout .l-body li { margin: 0.9rem 0; }
+.lf-list7 .slidev-layout .l-body li { margin: 0.6rem 0; }
+
+/* Velocity control */
+.lf-vel .slidev-layout .l-body { padding-top: 0.8rem; }
+.vel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; margin-top: 0.6rem; }
+.vel-box, .vel-corner { border-left: 4px solid var(--accent); padding: 0.5rem 1rem; background: color-mix(in srgb, var(--accent) 6%, transparent); line-height: 1.6; }
+.vel-box p, .vel-corner p { margin: 0.2rem 0; }
+.vel-corner { margin-top: 1rem; font-size: 0.92em; }
+.slidev-layout .lf-vel .slidev-vclick-current, .lf-vel .slidev-layout .slidev-vclick-current { color: var(--fg); }
+
+/* Calibration */
+.lf-cal .slidev-layout .l-body { padding-top: 0.6rem; }
+.lf-cal .slidev-layout .l-body li { margin: 0.45rem 0; }
+.lf-cal .slidev-layout .l-body li li { margin: 0.15rem 0; }
+/* --- fixes after first render --- */
+.bang-row { position: static; margin: 0.4rem 0 0.5rem; }                          /* 0 1 0 0 0 boxes under "Total 2^5 cases" */
+.lf-bang .check li { font-size: 0.95em; margin: 0.35rem 0; }                      /* ← point size / spacing */
+.lf-wavg .check li { margin: 0.4rem 0; }
+.wavg-eq { margin: 0 0 0.3rem 2.4rem; }
+.slidev-layout ol.wavg-cases, .slidev-layout ol.p-cases { margin: 0 0 0.2rem 3.6rem; }
+.vel-box .katex { white-space: nowrap; font-size: 1em; }                           /* ← velocity formula size */
+.vel-grid { gap: 1rem; }
+.lf-vel .vel-box { padding: 0.5rem 0.9rem; }
+/* WLF sensor: points left, CNY70 photo right */
+.wlf-grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 1.4rem; align-items: center; }   /* ← points : photo width */
+.wlf-grid .check li { margin: 1rem 0; }                                            /* ← space between points */
+.wlf-photo { width: 100%; max-height: 20rem; object-fit: contain; border-radius: 0.6rem; }        /* ← photo size */
+.wlf-grid { grid-template-columns: 1.6fr 1fr; gap: 1rem; }                        /* ← points : photo width */
+.wlf-grid .check li { font-size: 0.95em; white-space: nowrap; }                    /* ← point size */
+.wlf-grid { grid-template-columns: auto 1fr; gap: 1.6rem; }                        /* points take what they need, photo gets the rest */
+.wlf-grid .check li { font-size: 0.88em; margin: 1.1rem 0; }                       /* ← point size / spacing */
+.wlf-photo { max-height: 22rem; }                                                  /* ← photo size */
+.wlf-photo { max-height: 19rem; margin-right: 2.5rem; }                            /* ← photo size (kept clear of the logo) */
+/* bigger CNY70 photo on a white background */
+.wlf-grid { grid-template-columns: auto 1fr; gap: 1rem; }
+.wlf-photo { max-height: 23rem; width: auto; max-width: 100%; margin: 0 auto; border-radius: 0; background: #fff; display: block; }   /* ← photo size */
+.wlf-photo { max-height: 27rem; margin-top: -1.5rem; }                                /* ← photo size (bigger) */
+/* CNY70 photo: final size — points left, large photo right */
+.wlf-grid { display: grid; grid-template-columns: auto 1fr; gap: 0.6rem; align-items: center; }
+.wlf-grid .check li { font-size: 0.86em; margin: 1rem 0; }                         /* ← point size / spacing */
+.wlf-photo { max-width: none; width: auto; max-height: 23.5rem; margin: -1.2rem 0 0 auto; }   /* ← photo size */
+
+/* ===== COVER: kicker + title + subtitle anchored low, so the subtitle sits at the same height on every deck ===== */
+.slidev-layout.l-cover .fit { justify-content: flex-end; padding-bottom: 2.4rem; }   /* ← raise/lower the cover text block */

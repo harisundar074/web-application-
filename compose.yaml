@@ -1,0 +1,9 @@
+services:
+  workshop:
+    build:
+      context: .
+      args:
+        VITE_DEMO_IFRAME_URL: ${VITE_DEMO_IFRAME_URL:-}
+    ports:
+      - "${PORT:-8080}:80"
+    restart: unless-stopped

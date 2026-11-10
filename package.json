@@ -1,0 +1,32 @@
+{
+  "name": "workshop-robotics-vla",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev:template": "slidev template/slides.md --open",
+    "lint:template": "node scripts/lint-template.mjs template/slides.md",
+    "dev:ch1": "slidev Ch1-Introduction-to-Alphabot/slides.md --open",
+    "dev:ch2": "slidev Ch2-IO-Interfacing-and-Masking/slides.md --open",
+    "dev:ch3": "slidev Ch3-Motion-Control-and-Motor-Interfacing/slides.md --open",
+    "dev:ch4": "slidev Ch4-Pulse-Width-Modulation/slides.md --open",
+    "dev:ch5": "slidev Ch5-Ultrasonic-Sensor/slides.md --open",
+    "dev:ch6": "slidev Ch6-Analog-to-Digital-Converter/slides.md --open",
+    "dev:ch7": "slidev Ch7-Line-Following-Bot/slides.md --open",
+    "build:ch1": "slidev build Ch1-Introduction-to-Alphabot/slides.md --base /workshop-robotics-vla/Ch1-Introduction-to-Alphabot/ --out ../dist/Ch1-Introduction-to-Alphabot",
+    "build:ch2": "slidev build Ch2-IO-Interfacing-and-Masking/slides.md --base /workshop-robotics-vla/Ch2-IO-Interfacing-and-Masking/ --out ../dist/Ch2-IO-Interfacing-and-Masking",
+    "build:ch3": "slidev build Ch3-Motion-Control-and-Motor-Interfacing/slides.md --base /workshop-robotics-vla/Ch3-Motion-Control-and-Motor-Interfacing/ --out ../dist/Ch3-Motion-Control-and-Motor-Interfacing",
+    "build:ch4": "slidev build Ch4-Pulse-Width-Modulation/slides.md --base /workshop-robotics-vla/Ch4-Pulse-Width-Modulation/ --out ../dist/Ch4-Pulse-Width-Modulation",
+    "build:ch5": "slidev build Ch5-Ultrasonic-Sensor/slides.md --base /workshop-robotics-vla/Ch5-Ultrasonic-Sensor/ --out ../dist/Ch5-Ultrasonic-Sensor",
+    "build:ch6": "slidev build Ch6-Analog-to-Digital-Converter/slides.md --base /workshop-robotics-vla/Ch6-Analog-to-Digital-Converter/ --out ../dist/Ch6-Analog-to-Digital-Converter",
+    "build:ch7": "slidev build Ch7-Line-Following-Bot/slides.md --base /workshop-robotics-vla/Ch7-Line-Following-Bot/ --out ../dist/Ch7-Line-Following-Bot",
+    "build": "npm run build:ch1 && npm run build:ch2 && npm run build:ch3 && npm run build:ch4 && npm run build:ch5 && npm run build:ch6 && npm run build:ch7",
+    "lint": "node scripts/lint-template.mjs Ch1-Introduction-to-Alphabot/slides.md Ch2-IO-Interfacing-and-Masking/slides.md Ch3-Motion-Control-and-Motor-Interfacing/slides.md Ch4-Pulse-Width-Modulation/slides.md Ch5-Ultrasonic-Sensor/slides.md Ch6-Analog-to-Digital-Converter/slides.md Ch7-Line-Following-Bot/slides.md"
+  },
+  "devDependencies": {
+    "@slidev/cli": "^52.19.0"
+  },
+  "dependencies": {
+    "echarts": "^6.1.0",
+    "slidev-theme-tahta": "^0.13.3"
+  }
+}
